@@ -92,7 +92,12 @@ class WeatherFileRepository:
                 "No latest anomaly file found. Run the pipeline first."
             )
 
-        return pd.read_csv(path), path
+        df = pd.read_csv(path)
+
+        print("Loaded anomaly file:", path)
+        print("Columns:", list(df.columns))
+
+        return df, path
 
     def save_report(self, content: str) -> Path:
         filename = f"report_{datetime.now().strftime('%Y%m%d')}.md"
