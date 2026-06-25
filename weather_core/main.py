@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from src.pipeline import WeatherPipelineRunner
+from weather_core.pipeline import WeatherPipelineRunner
 
 
 def main() -> None:

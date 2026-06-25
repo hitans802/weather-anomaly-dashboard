@@ -3,8 +3,8 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from src.pipeline import WeatherPipelineRunner
-from src.repository import WeatherFileRepository
+from weather_core.pipeline import WeatherPipelineRunner
+from weather_core.repository import WeatherFileRepository
 from dashboard.ui_renderers import (
     DashboardInsightService,
     WeatherPlotRenderer,

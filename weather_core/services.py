@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 import pandas as pd
 
-from src.config import AppConfig
+from weather_core.config import AppConfig
 
 
 class WeatherIngestionService:

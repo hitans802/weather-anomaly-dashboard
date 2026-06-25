@@ -7,7 +7,7 @@ import os
 import pandas as pd
 import requests
 
-from src.config import AppConfig, AppPaths
+from weather_core.config import AppConfig, AppPaths
 
 
 class WeatherAPIClient:

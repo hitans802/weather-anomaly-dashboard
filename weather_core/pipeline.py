@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from src.models import RawFileInfo, ProcessedFileInfo, AnomalyFileInfo, ReportFileInfo
-from src.repository import WeatherAPIClient, WeatherFileRepository
-from src.services import (
+from weather_core.models import RawFileInfo, ProcessedFileInfo, AnomalyFileInfo, ReportFileInfo
+from weather_core.repository import WeatherAPIClient, WeatherFileRepository
+from weather_core.services import (
     WeatherIngestionService,
     WeatherCleaningService,
     WeatherAnomalyService,
