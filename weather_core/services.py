@@ -58,9 +58,13 @@ class WeatherCleaningService:
 
         out["date"] = out["time"].dt.date
 
-        out = out.groupby("date", group_keys=False).apply(
-            WeatherCleaningService._fill_short_gaps
+        out = (
+            out.groupby("date", group_keys=False)
+            .apply(WeatherCleaningService._fill_short_gaps)
+            .reset_index(drop=True)
         )
+
+        out["date"] = out["time"].dt.date
 
         return WeatherCleaningService._daily_aggregate(out)
 
@@ -73,6 +77,13 @@ class WeatherCleaningService:
 
     @staticmethod
     def _daily_aggregate(df: pd.DataFrame) -> pd.DataFrame:
+        df = df.copy()
+
+        if "date" not in df.columns:
+            df["time"] = pd.to_datetime(df["time"], errors="coerce")
+            df = df.dropna(subset=["time"])
+            df["date"] = df["time"].dt.date
+
         hours_present = df.groupby("date")["time"].count().rename("n_hours_present")
 
         daily_metrics = df.groupby("date").agg(
@@ -82,11 +93,13 @@ class WeatherCleaningService:
         )
 
         daily = pd.concat([daily_metrics, hours_present], axis=1).reset_index()
+
         daily["n_hours_expected"] = 24
         daily["missing_hours"] = daily["n_hours_expected"] - daily["n_hours_present"]
         daily["quality_flag"] = daily["missing_hours"].apply(
             WeatherCleaningService._quality_flag
         )
+
         return daily
 
     @staticmethod
