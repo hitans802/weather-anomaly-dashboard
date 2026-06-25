@@ -83,7 +83,8 @@ def main() -> None:
             df_all = refresh_pipeline_and_load_data()
             df_all = normalize_dataframe(df_all)
     except Exception as exc:
-        st.error(f"Dashboard couldn't load data: {exc}")
+        st.error("Dashboard couldn't load data.")
+        st.exception(exc)
         st.stop()
 
     dashboard_renderer.render_header()
