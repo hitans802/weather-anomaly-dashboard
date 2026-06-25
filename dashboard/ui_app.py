@@ -23,6 +23,11 @@ from dashboard.ui_renderers import (
 def normalize_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
 
+    if "date" not in df.columns:
+        raise KeyError(
+            f"'date' column missing. Available columns are: {list(df.columns)}"
+        )
+
     df["date"] = pd.to_datetime(df["date"], errors="coerce").dt.date
     df = df.dropna(subset=["date"]).sort_values("date").reset_index(drop=True)
 
